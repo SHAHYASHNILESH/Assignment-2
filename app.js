@@ -5,11 +5,15 @@ const expressLayouts=require('express-ejs-layouts');
 const path = require('path'); 
 const flash=require('connect-flash');
 const session=require('express-session');
+const passport=require('passport');
 
 const app=express();
 
+require('./config/passport')(passport);
+
 //Database connection
 const mongoose=require('mongoose');
+
 
 const db_link='mongodb+srv://admin:RSZHek7KCmdYYSPn@cluster0.ptf4r.mongodb.net/?retryWrites=true&w=majority';
 
@@ -41,6 +45,8 @@ app.use(
     })
   );
 
+  app.use(passport.initialize());
+  app.use(passport.session());
 //Connect-flash
 app.use(flash());
 
